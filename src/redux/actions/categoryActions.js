@@ -10,10 +10,11 @@ export function getCategoriesSuccess(categories){
 
 export function getCategories(){
    //reduxthunk yapısı  
-   return function(dispach){
+   return function(dispatch){
     debugger;
-    let url ="https://northwind.vercel.app/api/categories"
-    return fetch(url).then(response=>response.json())
-    .then(result=>dispach(getCategoriesSuccess(result)));
+    let url ="https://northwind.vercel.app/api/categories";
+    return fetch(url)
+    .then(response=>response.json())
+    .then(result=>dispatch(getCategoriesSuccess(result)));
    };
 }
