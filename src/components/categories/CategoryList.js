@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as categoryActions from "../../redux/actions/categoryActions";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { Badge, ListGroup, ListGroupItem } from "reactstrap";
+import * as productActions from "../../redux/actions/productActions";
 
 class CategoryList extends Component {
   //uygulama açıldığında kategorileri çekmek için
@@ -11,12 +12,17 @@ class CategoryList extends Component {
   }
   selectCategory = (category) => {
     this.props.actions.changeCategory(category);
+    this.props.actions.getProducts(category.id);
   };
 
   render() {
     return (
       <div>
-        <h3>Total Categories {this.props.categories.length}</h3>
+        <h3>
+          <Badge color="warning">
+            Total Categories {this.props.categories.length}
+          </Badge>
+        </h3>
         <ListGroup>
           {this.props.categories.map((category) => (
             <ListGroupItem
@@ -52,6 +58,7 @@ function mapDispatchToProps(dispatch) {
         categoryActions.changeCategory,
         dispatch
       ),
+      getProducts: bindActionCreators(productActions.getProducts, dispatch),
     },
   };
 }
